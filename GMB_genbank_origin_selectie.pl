@@ -26,7 +26,7 @@ for ($index=0; $index <= $capat; $index++)
 	}
 }
 print "Am terminat de prelucrat sectiunea ORIGIN\n";
-#print "@ORIGIN";
+print "@ORIGIN";
 
 $final = $#ORIGIN;
 $idx = -1;
@@ -42,6 +42,8 @@ for ($index=0; $index <= $final; $index++)
 		@SECVENTE[$idx] = @SECVENTE[$idx].$&; #sunt mai multe sectiuni ORIGIN
 		}
 }
+print "@SECVENTE";
+
 if ($ARGV[1] eq '')
 {
 	die "NU ati indicat nici un fisier pentru scrierea datelor, Am terminat!\n";
@@ -58,4 +60,4 @@ foreach (@SECVENTE)
 }
 close SCRIE;
 }
-#print "@SECVENTE";
+print "@SECVENTE";
