@@ -27,11 +27,12 @@ foreach ($continut1)
 shift(@result);
 @CDS = @result;
 
-print $#CDS;
-print "@CDS";
+#print $#CDS;
+#print "@CDS";
 print "\n";
 
 ##################################################################################################
+=pod
 
 $capat = $#continut;
 for ($index=0; $index <= $capat; $index++)
@@ -50,7 +51,6 @@ print "Am terminat de prelucrat sectiunea ORIGIN\n";
 print "@ORIGIN";
 
 ##################################################################################################
-
 $final = $#ORIGIN;
 $idx = -1;
 for ($index=0; $index <= $final; $index++)
@@ -66,9 +66,58 @@ for ($index=0; $index <= $final; $index++)
 		}
 }
 print "@SECVENTE";
-
+=cut
 ##################################################################################################
+my @lim_inf_global = ();
+my @lim_sup_global = ();
+my @numarul_de_limite_per_CDS = ();
 
+foreach(@CDS)
+{
+	my $idx = 0;
+	do
+	{
+		@lim_inf_temp = (@lim_inf_temp, $&);
+		$idx++;
+	}
+	while($_ =~ /\d+(?=\.\.)/gm);
+	
+	print"$idx\n";
+	
+	@numarul_de_limite_per_CDS = (@numarul_de_limite_per_CDS, $idx-1);
+	$idx = 0;
+	do
+	{
+		@lim_sup_temp = (@lim_sup_temp, $&);
+	}
+	while($_ =~ /(?<=\.\.)\d+/gm);
+
+	shift(@lim_inf_temp);
+	print"@lim_inf_temp"; 
+	@lim_inf_global = (@lim_inf_global, @lim_inf_temp);
+
+
+	print"\n";
+	@lim_sup_global = (@lim_sup_global, @lim_sup_temp);
+	@lim_inf_temp = ();
+	#@lim_sup_temp = undef;
+
+	
+}
+#shift(@lim_inf_global);
+shift(@lim_sup_global);
+foreach(@lim_inf_global)
+{
+	print "\n";
+	print "$_";
+	print ".....................................................................\n"
+}
+
+foreach(@numarul_de_limite_per_CDS)
+{
+	print "\n";
+	print "$_";
+}
 ##################################################################################################
 
 #print "Numarul de componente din array este: ", scalar @CDS,' ca rezultat al instructiunii "scalar @result"',"\n";
