@@ -32,7 +32,6 @@ shift(@result);
 print "\n";
 
 ##################################################################################################
-=pod
 
 $capat = $#continut;
 for ($index=0; $index <= $capat; $index++)
@@ -66,7 +65,7 @@ for ($index=0; $index <= $final; $index++)
 		}
 }
 print "@SECVENTE";
-=cut
+
 ##################################################################################################
 my @lim_inf_global = ();
 my @lim_sup_global = ();
@@ -74,7 +73,7 @@ my @numarul_de_limite_per_CDS = ();
 
 foreach(@CDS)
 {
-	my $idx = 0;
+	my $idx = -1; #-1 to compensate for extra iteration
 	do
 	{
 		@lim_inf_temp = (@lim_inf_temp, $&);
@@ -84,7 +83,7 @@ foreach(@CDS)
 	
 	print"$idx\n";
 	
-	@numarul_de_limite_per_CDS = (@numarul_de_limite_per_CDS, $idx-1);
+	@numarul_de_limite_per_CDS = (@numarul_de_limite_per_CDS, $idx);
 	$idx = 0;
 	do
 	{
@@ -101,11 +100,33 @@ foreach(@CDS)
 	@lim_sup_global = (@lim_sup_global, @lim_sup_temp);
 	@lim_inf_temp = ();
 	#@lim_sup_temp = undef;
-
-	
+	 last;	
 }
-#shift(@lim_inf_global);
-shift(@lim_sup_global);
+
+##################################################################################################
+
+#create hash map with CDS as key with empty values
+
+##################################################################################################
+$index = 0;
+foreach(@numarul_de_limite_per_CDS)
+{
+
+	my $nucleotide = "";
+	for($i = $index, $i < $_, $i++)
+	{
+		my $lim_inf = @lim_inf_global[$i];
+		my $lim_sup = @lim_sup_global[$i];
+		$temp_nucleotide = substr($ORIGIN, $lim_inf, $lim_sup);
+		$nucleotide = join($nucleotide, $temp_nucleotide);
+	}
+	#add the value to the key which is you CDS
+	$index = $_;
+}
+
+##################################################################################################
+
+
 foreach(@lim_inf_global)
 {
 	print "\n";
